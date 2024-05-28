@@ -1,41 +1,50 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { User } = require('../models');
-
 const router = express.Router();
+const User = require('../models/User');
 
-router.post('/signup', async (req, res) => {
-    const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ username, password: hashedPassword });
-    res.status(201).send('User created');
+router.post('/register', async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
+        const newUser = new User({ username, email, password });
+        await newUser.save();
+        res.status(201).json(newUser);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
 });
 
 router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    const user = await User.findOne({ where: { username } });
-    if (!user || !await bcrypt.compare(password, user.password)) {
-        return res.status(400).send('Invalid credentials');
+    try {
+        const { email, password } = req.body;
+        const user = await User.findOne({ email, password });
+        if (user) {
+            req.session.user = user;
+            res.cookie('userId', user._id, { httpOnly: true });
+            res.json(user);
+        } else {
+            res.status(400).json({ error: 'Invalid credentials' });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-    const token = jwt.sign({ userId: user.id }, 'secret');
-    res.json({ token });
 });
 
-router.post('/block', async (req, res) => {
-    const { userId, blockUserId } = req.body;
-    const user = await User.findByPk(userId);
-    user.blockedUsers = [...user.blockedUsers, blockUserId];
-    await user.save();
-    res.send('User blocked');
+router.post('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.clearCookie('userId');
+        res.json({ message: 'Logged out successfully' });
+    });
 });
 
-router.post('/signal', async (req, res) => {
-    const { userId, signalUserId } = req.body;
-    const user = await User.findByPk(userId);
-    user.signaledUsers = [...user.signaledUsers, signalUserId];
-    await user.save();
-    res.send('User signaled');
+router.get('/me', (req, res) => {
+    if (req.session.user) {
+        res.json(req.session.user);
+    } else {
+        res.status(401).json({ message: 'Not authenticated' });
+    }
 });
 
 module.exports = router;
