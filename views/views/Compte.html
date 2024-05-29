@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mon Compte</title>
+  <style>
+    /* Styles pour la mise en page */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa; /* Arrière-plan gris clair */
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff; /* Arrière-plan blanc */
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); /* Ombre légère */
+    }
+    .title {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #007bff; /* Couleur bleue */
+    }
+    .info {
+      margin-bottom: 10px;
+    }
+    .info label {
+      font-weight: bold;
+      color: #555; /* Couleur grise */
+    }
+    .info span {
+      color: #333; /* Couleur plus foncée */
+    }
+    /* Styles pour les boutons du tableau de bord */
+    .dashboard-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+    .dashboard-buttons a {
+      padding: 10px 20px;
+      background-color: #007bff; /* Couleur bleue */
+      color: #fff; /* Texte blanc */
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">Mon Compte</div>
+     <!-- Profil -->
+  <div class="container">
+    <div class="profile">
+      <img src="https://i.pravatar.cc/80?img=1" alt="Profile Picture">
+      <div class="profile-name">Delphine</div>
+    </div>
+    <div class="info">
+      <label for="nom">Nom:</label>
+      <span id="nom">Bianquinch</span>
+    </div>
+    <div class="info">
+      <label for="prenom">Prénom:</label>
+      <span id="prenom">Delphine</span>
+    </div>
+    <div class="info">
+      <label for="date_naissance">Date de Naissance:</label>
+      <span id="date_naissance">01/01/1990</span>
+    </div>
+    <div class="info">
+      <label for="lieu_naissance">Lieu de Naissance:</label>
+      <span id="lieu_naissance">Paris, France</span>
+    </div>
+    <div class="info">
+      <label for="date_creation">Date de Création du Compte:</label>
+      <span id="date_creation">01/01/2020</span>
+    </div>
+    <div class="info">
+      <label for="nombre_publications">Nombre de Publications:</label>
+      <span id="nombre_publications">50</span>
+    </div>
+  </div>
+  <div class="dashboard-buttons">
+    <a href="Abonne.html">Abonnés</a>
+    <a href="chat.html" style="background-color: #6c757d;">Messages</a>
+    <a href="lien_abonnements.html" style="background-color: #28a745;">Abonnements</a>
+    <a href="CompteBloque.html" style="background-color: #dc3545;">Comptes Bloqués</a>
+  </div>
+</body>
+</html>

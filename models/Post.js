@@ -1,11 +1,23 @@
-const { DataTypes } = require('sequelize');
+const mongoose = require('mongoose');
 
-module.exports = (sequelize) => {
-    const Post = sequelize.define('Post', {
-        content: { type: DataTypes.STRING, allowNull: false },
-        likes: { type: DataTypes.JSON, defaultValue: [] },
-        comments: { type: DataTypes.JSON, defaultValue: [] }
-    });
+const PostSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    body: {
+        type: String,
+        required: true
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    }
+});
 
-    return Post;
-};
+module.exports = mongoose.model('Post', PostSchema);

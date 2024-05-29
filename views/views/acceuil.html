@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog ESP</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="./acceuil.css">
+  <style>
+    /* Styles pour la mise en page */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fff; /* Arrière-plan blanc */
+      display: flex;
+      flex-direction: column; /* Aligner les éléments en colonne */
+    }
+    .header {
+      background-color: #007bff; /* Couleur de fond du titre */
+      color: #fff; /* Couleur du texte */
+      padding: 30px; /* Espacement intérieur */
+      text-align: center; /* Centrage du texte */
+      width: 100%; /* Occuper toute la largeur */
+      border-radius: 30px;
+    }
+    .sidebar {
+      background-color: #f0f0f0;
+      width: 200px;
+      padding: 20px;
+      border-radius: 30px;
+      align-self: flex-start; /* Aligner le tableau de bord à gauche */
+    }
+    .content {
+      flex-grow: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Centrer les éléments horizontalement */
+      justify-content: center; /* Centrer les éléments verticalement */
+    }
+    /* Styles pour le cercle utilisateur */
+    .user-circle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer; /* Ajout du curseur pointer */
+    }
+    .user-circle__image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    .user-circle__name {
+      font-size: 16px;
+    }
+    /* Styles pour les boutons du tableau de bord */
+    .sidebar button {
+      display: block;
+      margin-bottom: 20px; /* Espacement entre les boutons */
+      padding: 15px 0; /* Ajout de padding pour centrer le texte verticalement */
+      width: 100%; /* Définition de la largeur à 100% pour remplir complètement le conteneur */
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 8px; /* Augmentation de la bordure */
+      cursor: pointer;
+      font-size: 16px; /* Augmentation de la taille de la police */
+      text-decoration: none; /* Supprimer le soulignement des liens */
+      text-align: center; /* Centrer le texte */
+    }
+    .sidebar button:hover {
+      background-color: #0056b3;
+    }
+    /* Styles pour les cartes */
+    .card {
+      width: 100%; /* Utilisation de la largeur complète disponible */
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .card__header img {
+      width: 100%;
+      height: auto;
+    }
+    .card__body {
+      padding: 20px;
+    }
+    .card__footer {
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    .tag {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      margin-right: 5px;
+    }
+    .tag-blue {
+      background-color: #007bff;
+    }
+    .tag-brown {
+      background-color: #8B4513;
+    }
+    .tag-red {
+      background-color: #dc3545;
+    }
+    .user {
+      display: flex;
+      align-items: center;
+    }
+    .user img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Blog ESP</h1>
+  </div>
+
+  <div class="sidebar">
+    <!-- Contenu du tableau de bord -->
+    <div class="user-circle" onclick="toggleDashboard()">
+      <img src="https://i.pravatar.cc/80?img=1" alt="user__image" class="user-circle__image">
+      <span class="user-circle__name" id="username" style="display:none;">Delphine</span>
+      <button onclick="window.location.href='Compte.html'" id="accountBtn" style="display:none;" class="sidebar-button">Compte</button>
+      <button onclick="window.location.href='chat.html'" id="messagesBtn" style="display:none;" class="sidebar-button">Messages</button>
+      <button onclick="window.location.href='Abonne.html'" id="followersBtn" style="display:none;" class="sidebar-button">Abonnés</button>
+      <button onclick="window.location.href='Abonnement.html'" id="subscriptionsBtn" style="display:none;" class="sidebar-button">Abonnements</button>
+      <button onclick="window.location.href='CompteBloque.html'" id="blockedAccountsBtn" style="display:none;" class="sidebar-button">Comptes Bloqués</button>
+    </div>
+  </div>
+  
+
+  <div class="content">
+    <!-- Contenu principal -->
+    <div class="card">
+      <div class="card__header">
+        <img src="https://source.unsplash.com/600x400/?computer" alt="card__image" class="card__image" width="600">
+    </div>
+    <div class="card__body">
+      <span class="tag tag-blue">Technology</span>
+      <h4>What's new in 2022 Tech</h4>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+    </div>
+    <div class="card__footer">
+      <div class="user">
+        <img src="https://i.pravatar.cc/40?img=1" alt="user__image" class="user__image">
+        <div class="user__info">
+          <h5>Jane Doe</h5>
+          <small>2h ago</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card__header">
+      <img src="https://source.unsplash.com/600x400/?food" alt="card__image" class="card__image" width="600">
+    </div>
+    <div class="card__body">
+      <span class="tag tag-brown">Food</span>
+      <h4>Delicious Food</h4>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+    </div>
+    <div class="card__footer">
+      <div class="user">
+          <img src="https://i.pravatar.cc/40?img=2" alt="user__image" class="user__image">
+          <div class="user__info">
+            <h5>Jony Doe</h5>
+            <small>Yesterday</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card__header">
+      <img src="https://source.unsplash.com/600x400/?nature" alt="card__image" class="card__image" width="600">
+    </div>
+    <div class="card__body">
+      <span class="tag tag-red">Nature</span>
+      <h4>Exploring the Wilderness</h4>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+    </div>
+    <div class="card__footer">
+      <div class="user">
+        <img src="https://i.pravatar.cc/40?img=3" alt="user__image" class="user__image">
+        <div class="user__info">
+          <h5>John Doe</h5>
+          <small>1 day ago</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Icône de stylo pour publier du texte -->
+<a href="acceuil.html" class="write-post-icon"><i class="fas fa-pen"></i></a>
+<script>
+  function toggleDashboard() {
+    var nameElement = document.getElementById('username');
+    var accountBtn = document.getElementById('accountBtn');
+    var messagesBtn = document.getElementById('messagesBtn');
+    var followersBtn = document.getElementById('followersBtn');
+    var subscriptionsBtn = document.getElementById('subscriptionsBtn');
+    var blockedAccountsBtn = document.getElementById('blockedAccountsBtn');
+    
+    if (nameElement.style.display === 'none') {
+      nameElement.style.display = 'block';
+      accountBtn.style.display = 'block';
+      messagesBtn.style.display = 'block';
+      followersBtn.style.display = 'block';
+      subscriptionsBtn.style.display = 'block';
+      blockedAccountsBtn.style.display = 'block';
+    } else {
+      nameElement.style.display = 'none';
+      accountBtn.style.display = 'none';
+      messagesBtn.style.display = 'none';
+      followersBtn.style.display = 'none';
+      subscriptionsBtn.style.display = 'none';
+      blockedAccountsBtn.style.display = 'none';
+    }
+  }
+</script>
+</body>
+</html>
+
