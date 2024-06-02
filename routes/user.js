@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const BlockedAccount = require('../models/BlockedAccount');
-const getBlockedUsers = require('../middlewares/getBlockedUsers');  // Import the getBlockedUsers middleware
+const getBlockedUsers = require('../middlewares/getBlockedUser');
+const authMiddleware = require('../middlewares/auth');
+
 
 router.get('/blocked/:userId', authMiddleware, getBlockedUsers);
 
 const blockUser = async (req, res) => {
-    const blockerId = req.session.user._id;  // Assuming the blocker is the logged-in user
+    const blockerId = req.session.user._id;
     const { blockedId } = req.body;
 
     try {
