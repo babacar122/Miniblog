@@ -1,0 +1,31 @@
+.blocked-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.blocked-container:hover {
+    transform: scale(1.02);
+}
+
+.blocked-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.blocked-list li {
+    background: #f4f4f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.blocked-list li:hover {
+    transform: scale(1.02);
+    background-color: #eaeaea;
+}

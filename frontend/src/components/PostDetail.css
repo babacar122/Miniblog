@@ -1,0 +1,29 @@
+.post-detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.post-detail {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+    font-size: 2em;
+    color: #4a4e69;
+    margin-bottom: 10px;
+}
+
+.post-body {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.post-author, .post-date {
+    font-size: 0.9em;
+    color: #666;
+}
