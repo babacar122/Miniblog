@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import PostDetail from './components/PostDetail';
 import PostForm from './components/PostForm';
@@ -16,15 +16,15 @@ const App = () => {
             <div>
                 <Header />
                 <div className="container">
-                    <Switch>
-                        <Route path="/" exact component={Home} />
-                        <Route path="/posts/:id" component={PostDetail} />
-                        <Route path="/edit/:id" component={PostForm} />
-                        <Route path="/register" component={Register} />
-                        <Route path="/login" component={Login} />
-                        <Route path="/profile/:id" component={Profile} />
-                        <Route path="/blocked/:id" component={BlockedAccounts} />
-                    </Switch>
+                    <Routes>
+                        <Route path="/" exact element={<Home />} />
+                        <Route path="/posts/:id" element={<PostDetail />} />
+                        <Route path="/edit/:id" element={<PostForm />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/profile/:id" element={<Profile />} />
+                        <Route path="/blocked/:id" element={<BlockedAccounts />} />
+                    </Routes>
                 </div>
             </div>
         </Router>
