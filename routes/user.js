@@ -15,8 +15,12 @@ const blockUser = async (req, res) => {
     try {
         const blockedAccount = new BlockedAccount({ blockerId, blockedId });
         await blockedAccount.save();
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.status(201).json({ message: 'User blocked successfully' });
     } catch (error) {
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.status(500).json({ error: 'Error blocking user', details: error.message });
     }
 };
@@ -28,11 +32,15 @@ const getUserById = async (req, res, next) => {
         const userId = req.params.id;
         const user = await User.findById(userId);
         if (!user) {
+            res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+            res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
             return res.status(404).json({ error: 'User not found' });
         }
         req.user = user;
         next();
     } catch (err) {
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.status(500).json({ error: err.message });
     }
 };
@@ -47,6 +55,8 @@ router.post('/register', async (req, res) => {
         res.cookie('userId', newUser._id, { httpOnly: true });
         res.cookie('username', newUser.username, { httpOnly: true });
         res.cookie('email', newUser.email, { httpOnly: true });
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
 
         res.status(201).json(newUser);
     } catch (err) {
@@ -63,12 +73,17 @@ router.post('/login', async (req, res) => {
             res.cookie('userId', user._id, { httpOnly: true });
             res.cookie('username', user.username, { httpOnly: true });
             res.cookie('email', user.email, { httpOnly: true });
-
+            res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+            res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
             res.json(user);
         } else {
+            res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+            res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
             res.status(400).json({ error: 'Invalid credentials' });
         }
     } catch (err) {
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.status(500).json({ error: err.message });
     }
 });
@@ -81,19 +96,27 @@ router.post('/logout', (req, res) => {
         res.clearCookie('userId');
         res.clearCookie('username');
         res.clearCookie('email');
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.json({ message: 'Logged out successfully' });
     });
 });
 
 router.get('/me', (req, res) => {
     if (req.session.user) {
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.json(req.session.user);
     } else {
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.status(401).json({ message: 'Not authenticated' });
     }
 });
 
 router.get('/:id', getUserById, (req, res) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+    res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
     res.json(req.user);
 });
 
@@ -109,6 +132,8 @@ router.get('/profile/:id', getUserById, (req, res) => {
         accountCreationDate: user.createdAt,
         postCount: user.posts ? user.posts.length : 0, // Assuming user has posts field
     };
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
     res.json(profileInfo);
 });
 
@@ -120,20 +145,26 @@ const getBlockedAccounts = async (req, res, next) => {
     const blockedAccounts = await BlockedAccount.find({ userId });
 
     if (!blockedAccounts) {
-      return res.status(404).json({ message: 'Blocked accounts not found' });
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
+        return res.status(404).json({ message: 'Blocked accounts not found' });
     }
 
     req.blockedAccounts = blockedAccounts;
     next();
   } catch (error) {
     console.error('Error fetching blocked accounts:', error);
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+    res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
     res.status(500).json({ message: 'Server error' });
   }
 };
 
 // Route to get blocked accounts
 router.get('/blocked/:id', getBlockedAccounts, (req, res) => {
-  res.json(req.blockedAccounts);
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+    res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
+    res.json(req.blockedAccounts);
 });
 
 

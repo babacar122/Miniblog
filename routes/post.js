@@ -8,8 +8,12 @@ router.post('/', authMiddleware, async (req, res) => {
         const { title, body } = req.body;
         const newPost = new Post({ title, body, author: req.session.user._id });
         await newPost.save();
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.status(201).json(newPost);
     } catch (err) {
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.status(400).json({ error: err.message });
     }
 });
@@ -19,6 +23,8 @@ router.get('/', async (req, res) => {
         const posts = await Post.find().populate('author', 'username');
         res.json(posts);
     } catch (err) {
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.status(500).json({ error: err.message });
     }
 });
@@ -29,8 +35,12 @@ router.get('/:id', async (req, res) => {
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.json(post);
     } catch (err) {
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.status(500).json({ error: err.message });
     }
 });
@@ -48,6 +58,8 @@ router.put('/:id', authMiddleware, async (req, res) => {
         post.title = req.body.title || post.title;
         post.body = req.body.body || post.body;
         await post.save();
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
 
         res.json(post);
     } catch (err) {
@@ -66,8 +78,12 @@ router.delete('/:id', authMiddleware, async (req, res) => {
         }
 
         await post.remove();
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.json({ message: 'Post deleted successfully' });
     } catch (err) {
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');
         res.status(500).json({ error: err.message });
     }
 });

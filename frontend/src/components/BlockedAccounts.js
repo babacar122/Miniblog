@@ -8,7 +8,7 @@ const BlockedAccounts = () => {
     const [blockedAccounts, setBlockedAccounts] = useState([]);
 
     useEffect(() => {
-        axios.get(`/blocked/${id}`)
+        axios.get(`/blocked/${id}`, )
             .then(response => {
                 setBlockedAccounts(response.data);
             })
