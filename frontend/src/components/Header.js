@@ -10,7 +10,7 @@ const Header = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get('/me');
+                const response = await axios.get('/users/me');
                 setUser(response.data);
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -22,7 +22,7 @@ const Header = () => {
 
     const handleLogout = async () => {
         try {
-            await axios.post('/logout');
+            await axios.post('/users/logout');
             setUser(null);
             Cookies.remove('userId');
             Cookies.remove('username');

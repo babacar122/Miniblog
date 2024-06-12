@@ -10,7 +10,7 @@ const Login = () => {
         e.preventDefault();
         const user = { email, password };
 
-        axios.post('/login', user)
+        axios.post('/users/login', user)
             .then(response => {
                 window.location.href = '/';
                 setEmail('');

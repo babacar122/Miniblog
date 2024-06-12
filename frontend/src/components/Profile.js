@@ -8,7 +8,7 @@ const Profile = () => {
     const [profile, setProfile] = useState(null);
 
     useEffect(() => {
-        axios.get(`/profile/${id}`)
+        axios.get(`/users/profile/${id}`)
             .then(response => {
                 setProfile(response.data);
             })
@@ -28,7 +28,6 @@ const Profile = () => {
                     <p><strong>Birth Date:</strong> {profile.birthDate || 'N/A'}</p>
                     <p><strong>Birth Place:</strong> {profile.birthPlace || 'N/A'}</p>
                     <p><strong>Account Created:</strong> {new Date(profile.accountCreationDate).toLocaleDateString()}</p>
-                    <p><strong>Posts Count:</strong> {profile.postCount}</p>
                 </div>
             ) : (
                 <p>Loading...</p>

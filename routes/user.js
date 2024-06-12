@@ -130,7 +130,6 @@ router.get('/profile/:id', getUserById, (req, res) => {
         birthDate: user.birthDate || '',
         birthPlace: user.birthPlace || '',
         accountCreationDate: user.createdAt,
-        postCount: user.posts ? user.posts.length : 0, // Assuming user has posts field
     };
     res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
         res.header('Access-Control-Allow-Headers','Origin, X-Requested-With, Content-Type, Accept');

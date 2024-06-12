@@ -10,7 +10,7 @@ const PostForm = ({ onNewPost }) => {
         e.preventDefault();
         const post = { title, body };
 
-        axios.post('/api/posts', post)
+        axios.post('/posts/', post)
             .then(response => {
                 onNewPost(response.data);
                 setTitle('');
