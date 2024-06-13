@@ -7,18 +7,11 @@ import './Home.css';
 const Home = () => {
     const [posts, setPosts] = useState([]);
 
-    const fetchPosts = () => {
-        axios.get('/posts')
-            .then(response => {
-                setPosts(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching posts:', error);
-            });
-    };
-
     useEffect(() => {
-        fetchPosts();
+        fetch('http://localhost:3000/api/posts')
+            .then(response => response.json())
+            .then(data => setPosts(data))
+            .catch(error => console.error('Error fetching posts:', error));
     }, []);
 
     const handleNewPost = (post) => {

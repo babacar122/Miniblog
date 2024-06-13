@@ -1,13 +1,14 @@
-const BlockedAccount = require('../models/BlockedAccount');
+const db = require('../config/db');
 
-const getBlockedUsers = async (req, res) => {
-    const { userId } = req.params;
-
+const getBlockedUsers = async (req, res, next) => {
     try {
-        const blockedAccounts = await BlockedAccount.find({ blockerId: userId }).populate('blockedId', 'username');
-        res.status(200).json(blockedAccounts);
+        const userId = req.params.userId;
+        const [blockedUsers] = await db.query('SELECT * FROM blocked_accounts WHERE blocker_id = ?', [userId]);
+
+        req.blockedUsers = blockedUsers;
+        next();
     } catch (error) {
-        res.status(500).json({ error: 'Error fetching blocked users', details: error.message });
+        res.status(500).json({ error: error.message });
     }
 };
 

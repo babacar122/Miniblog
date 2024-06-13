@@ -7,12 +7,12 @@ const PostsList = ({ posts }) => {
         <div className="posts-list">
             <h2>Posts</h2>
             {posts.map(post => (
-                <div key={post._id} className="post-card">
+                <div key={post.post_id} className="post-card">
                     <h3 className="post-title">
-                        <Link to={`/posts/${post._id}`}>{post.title}</Link>
+                        <Link to={`/posts/${post.post_id}`}>{post.title}</Link>
                     </h3>
-                    <p className="post-author">Posted by: {post.author.username}</p>
-                    <p className="post-date">{new Date(post.date).toLocaleDateString()}</p>
+                    <p className="post-author">Posted by: {post.author_username}</p>
+                    <p className="post-date">{new Date(post.created_at).toLocaleDateString()}</p>
                 </div>
             ))}
         </div>
@@ -20,3 +20,4 @@ const PostsList = ({ posts }) => {
 };
 
 export default PostsList;
+

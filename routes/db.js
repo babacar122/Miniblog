@@ -1,16 +1,13 @@
-const { MongoClient } = require('mongodb');
+const mysql = require('mysql2');
 
-const uri = 'mongodb://127.0.0.1:27017';
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const pool = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'blog_app',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
-let db;
-
-async function connectDB() {
-    if (!db) {
-        await client.connect();
-        db = client.db('miniblog');
-    }
-    return db;
-}
-
-module.exports = connectDB;
+module.exports = pool.promise();
