@@ -13,9 +13,8 @@ const Register = () => {
         e.preventDefault();
         const user = { username, email, password };
 
-        axios.post('/users/register', user)
+        axios.post('http://localhost:4000/users/register', user)
             .then(response => {
-                // Handle successful registration
                 setUsername('');
                 setEmail('');
                 setPassword('');
