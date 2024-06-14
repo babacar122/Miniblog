@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('../routes/db');
 
 const getBlockedUsers = async (req, res, next) => {
     try {

@@ -6,19 +6,20 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 4000;
 
-mongoose.connect('mongodb://localhost/miniblog', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected...'))
-    .catch(err => console.log(err));
-
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors({
+    origin: 'http://localhost:3000', // Allow requests from this origin
+    credentials: true // Allow cookies to be sent
+}));
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // For production, set secure to true
+    cookie: { secure: false }
 }));
+
+app.use(cookieParser());
+
 
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
