@@ -8,7 +8,7 @@ const Profile = () => {
     const [profile, setProfile] = useState(null);
 
     useEffect(() => {
-        axios.get(`/users/profile/${id}`)
+        axios.get(`http://localhost:4000/users/profile/${id}`)
             .then(response => {
                 setProfile(response.data);
             })
