@@ -41,12 +41,16 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
+    console.log("received data");
     const { email, password } = req.body;
     const [users] = await db.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password]);
 
     if (users.length) {
       const user = users[0];
+      if (user)
+        console.log("Got the user");
       req.session.user = user;
+      console.log('Session:', req.session);
       res.cookie('userId', user.user_id, { httpOnly: true });
       res.cookie('username', user.username, { httpOnly: true });
       res.cookie('email', user.email, { httpOnly: true });

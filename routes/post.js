@@ -14,12 +14,8 @@ router.post('/', authMiddleware, async (req, res) => {
         );
 
         const newPost = { post_id: result.insertId, title, body, author };
-        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         res.status(201).json(newPost);
     } catch (err) {
-        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         res.status(400).json({ error: err.message });
     }
 });
@@ -31,8 +27,6 @@ router.get('/', async (req, res) => {
         );
         res.json(posts);
     } catch (err) {
-        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         res.status(500).json({ error: err.message });
     }
 });
@@ -47,13 +41,9 @@ router.get('/:id', async (req, res) => {
         if (posts.length === 0) {
             return res.status(404).json({ message: 'Post not found' });
         }
-
-        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        console.log("post:" + post[0] + "found");
         res.json(posts[0]);
     } catch (err) {
-        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         res.status(500).json({ error: err.message });
     }
 });
@@ -77,8 +67,6 @@ router.put('/:id', authMiddleware, async (req, res) => {
             [title || post.title, body || post.content, req.params.id]
         );
 
-        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         res.json({ post_id: req.params.id, title, body });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -100,12 +88,8 @@ router.delete('/:id', authMiddleware, async (req, res) => {
 
         await db.query('DELETE FROM posts WHERE post_id = ?', [req.params.id]);
 
-        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         res.json({ message: 'Post deleted successfully' });
     } catch (err) {
-        res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         res.status(500).json({ error: err.message });
     }
 });

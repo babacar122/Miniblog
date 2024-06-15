@@ -4,13 +4,15 @@ import PostForm from './PostForm';
 import PostsList from './PostsList';
 import './Home.css';
 
+axios.defaults.withCredentials = true;
+
+
 const Home = () => {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/posts')
-            .then(response => response.json())
-            .then(data => setPosts(data))
+        axios.get('http://localhost:4000/posts/')
+            .then(response => setPosts(response.data))
             .catch(error => console.error('Error fetching posts:', error));
     }, []);
 
