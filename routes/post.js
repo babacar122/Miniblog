@@ -3,16 +3,16 @@ const router = express.Router();
 const db = require('./db');
 const authMiddleware = require('../middlewares/auth');
 
-router.post('/', authMiddleware, async (req, res) => {
+router.post('/new', authMiddleware, async (req, res) => {
     try {
         const { title, body } = req.body;
         const author = req.session.user.user_id;
 
         const [result] = await db.query(
-            'INSERT INTO posts (user_id, category_id, title, content) VALUES (?, ?, ?, ?)',
+            'INSERT INTO posts (user_id, title, content) VALUES (?, ?, ?)',
             [author, 1, title, body]
         );
-
+        console.log("Added the post: " + result);
         const newPost = { post_id: result.insertId, title, body, author };
         res.status(201).json(newPost);
     } catch (err) {
@@ -33,17 +33,22 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
+        const postId = req.params.id;
+        console.log(postId);
+        
         const [posts] = await db.query(
             'SELECT p.*, u.username AS author FROM posts p JOIN users u ON p.user_id = u.user_id WHERE p.post_id = ?',
-            [req.params.id]
+            [postId]
         );
 
         if (posts.length === 0) {
             return res.status(404).json({ message: 'Post not found' });
         }
-        console.log("post:" + post[0] + "found");
+
+        console.log("Post found:", posts[0]);
         res.json(posts[0]);
     } catch (err) {
+        console.error('Internal Server Error:', err);
         res.status(500).json({ error: err.message });
     }
 });

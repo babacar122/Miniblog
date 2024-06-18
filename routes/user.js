@@ -6,7 +6,7 @@ const getBlockedUsers = require('../middlewares/getBlockedUser');
 
 const getBlockedAccounts = async (req, res, next) => {
   try {
-    const userId = req.params.id;
+    const userId = req.sessions.user.user_id;
 
     const [blockedAccounts] = await db.query('SELECT * FROM blocked_accounts WHERE blocker_id = ?', [userId]);
 
@@ -21,6 +21,10 @@ const getBlockedAccounts = async (req, res, next) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+router.get('/blocked-accounts', getBlockedAccounts, (req, res) => {
+  res.status(200).json(req.blockedAccounts);
+});
 
 router.post('/register', async (req, res) => {
   try {
@@ -77,6 +81,7 @@ router.post('/logout', (req, res) => {
 
 router.get('/me', (req, res) => {
   if (req.session.user) {
+    console.log("User: " + req.session.user)
     res.json(req.session.user);
   } else {
     res.status(401).json({ message: 'Not authenticated' });

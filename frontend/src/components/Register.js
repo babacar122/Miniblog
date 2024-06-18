@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Register.css';
 
@@ -8,6 +8,10 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        document.querySelector('.container').classList.add('fade-in');
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -29,7 +33,7 @@ const Register = () => {
     };
 
     return (
-        <div className="container fade-in">
+        <div className="container">
             <h2>Register</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">

@@ -4,21 +4,34 @@ import axios from 'axios';
 import './BlockedAccounts.css';
 
 const BlockedAccounts = () => {
-    const { id } = useParams();
     const [blockedAccounts, setBlockedAccounts] = useState([]);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        axios.get(`/users/blocked/${id}`, )
+        axios.get('http://localhost:4000/users/me')
             .then(response => {
-                setBlockedAccounts(response.data);
+                setUser(response.data);
             })
             .catch(error => {
-                console.error('Error fetching blocked accounts:', error);
+                console.error('Error fetching profile:', error);
             });
-    }, [id]);
+    }, []);
+
+    useEffect(() => {
+        if (user) {
+            axios.get(`http://localhost:4000/users/blocked-accounts`)
+                .then(response => {
+                    setBlockedAccounts(response.data);
+                    document.querySelector('.blocked-container').classList.add('fade-in');
+                })
+                .catch(error => {
+                    console.error('Error fetching blocked accounts:', error);
+                });
+        }
+    }, [user]);
 
     return (
-        <div className="blocked-container fade-in">
+        <div className="blocked-container">
             <h2>Blocked Accounts</h2>
             <ul className="blocked-list">
                 {blockedAccounts.map(account => (

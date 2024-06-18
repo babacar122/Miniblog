@@ -14,7 +14,7 @@ const Header = () => {
                 setUser(response.data);
             } catch (error) {
                 if (error.response && error.response.status === 401) {
-                    console.log("user not logged in");
+                    console.log("User not logged in");
                 } else {
                     console.error('Error fetching user data:', error);
                 }

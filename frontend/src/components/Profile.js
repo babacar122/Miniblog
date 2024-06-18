@@ -1,24 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import './Profile.css';
 
+axios.defaults.withCredentials = true;
+
 const Profile = () => {
-    const { id } = useParams();
     const [profile, setProfile] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/users/profile/${id}`)
+        axios.get('http://localhost:4000/users/me')
             .then(response => {
-                setProfile(response.data);
+                setUser(response.data);
             })
             .catch(error => {
                 console.error('Error fetching profile:', error);
             });
-    }, [id]);
+    }, []);
+
+    useEffect(() => {
+        if (user) {
+            console.log(user)
+            axios.get(`http://localhost:4000/users/profile/${user.user_id}`)
+                .then(response => {
+                    setProfile(response.data);
+                })
+                .catch(error => {
+                    if (axios.isCancel(error)) {
+                        console.log('Request canceled:', error.message);
+                    } else {
+                        console.error('Error fetching profile details:', error);
+                        if (error.response) {
+                            console.error('Error status:', error.response.status);
+                            console.error('Error data:', error.response.data);
+                            console.error('Error headers:', error.response.headers);
+                        } else if (error.request) {
+                            console.error('No response received:', error.request);
+                        } else {
+                            console.error('Error message:', error.message);
+                        }
+                    }
+                });
+        }
+    }, [user]);
 
     return (
-        <div className="profile-container fade-in">
+        <div className="profile-container">
             {profile ? (
                 <div className="profile-info">
                     <h2>{profile.username}'s Profile</h2>

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './PostLists.css';
 
 const PostsList = ({ posts }) => {
+    useEffect(() => {
+        document.querySelector('.posts-list').classList.add('fade-in');
+    }, []);
+
     return (
         <div className="posts-list">
             <h2>Posts</h2>
@@ -20,4 +24,3 @@ const PostsList = ({ posts }) => {
 };
 
 export default PostsList;
-

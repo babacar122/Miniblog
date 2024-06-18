@@ -6,7 +6,6 @@ import './Home.css';
 
 axios.defaults.withCredentials = true;
 
-
 const Home = () => {
     const [posts, setPosts] = useState([]);
 
@@ -20,8 +19,12 @@ const Home = () => {
         setPosts([post, ...posts]);
     };
 
+    useEffect(() => {
+        document.querySelector('.container').classList.add('fade-in');
+    }, []);
+
     return (
-        <div className="container fade-in">
+        <div className="container">
             <h1>Home</h1>
             <PostForm onNewPost={handleNewPost} />
             <PostsList posts={posts} />
@@ -30,3 +33,4 @@ const Home = () => {
 };
 
 export default Home;
+
